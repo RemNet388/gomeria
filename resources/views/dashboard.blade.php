@@ -1,17 +1,22 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+@section('content')
+<div class="container">
+    <h1 class="mb-4">Panel de control</h1>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <a href="{{ route('productos.index') }}" class="btn btn-outline-primary w-100">📦 Productos</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ route('clientes.index') }}" class="btn btn-outline-primary w-100">👤 Clientes</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ route('vehiculos.index') }}" class="btn btn-outline-primary w-100">🚗 Vehículos</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ route('ordenes-trabajo.index') }}" class="btn btn-outline-primary w-100">🛠️ Órdenes de Trabajo</a>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection

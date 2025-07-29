@@ -1,30 +1,20 @@
 services:
   - type: web
     name: gomeria
-    env: docker
+    env: php
     plan: free
-    dockerfilePath: Dockerfile
-    buildCommand: ""
-    startCommand: ""
+    buildCommand: |
+      composer install
+      npm install
+      npm run build
+      php artisan migrate --force
+    startCommand: php artisan serve --host 0.0.0.0 --port 10000
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
         value: false
-      - key: APP_KEY
-        value: base64:u42TwQ1dp8vrV2pf3si2HR86PYMxpfzRIruOfEUrUc4=
+      - key: base64:u42TwQ1dp8vrV2pf3si2HR86PYMxpfzRIruOfEUrUc4=
+        generateValue: true
       - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        value: dpg-xxxxx.db.render.com
-      - key: DB_PORT
-        value: 5432
-      - key: DB_DATABASE
-        value: gomeria
-      - key: DB_USERNAME
-        value: admin
-      - key: DB_PASSWORD
-        value: gooNet560
-      - key: VITE_APP_NAME
-        value: Gomeria
-
+        value: sqlite

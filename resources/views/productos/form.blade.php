@@ -29,3 +29,8 @@
     <label for="precio_compra" class="form-label">Precio de Compra</label>
     <input type="number" step="0.01" name="precio_compra" class="form-control" value="{{ old('precio_compra', $producto->precio_compra ?? '') }}">
 </div>
+<div class="mb-3">
+    <label for="foto" class="form-label">Foto del producto</label>
+    <input type="file" name="foto" class="form-control">
+</div>
+

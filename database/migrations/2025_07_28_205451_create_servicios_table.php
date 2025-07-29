@@ -9,15 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
+public function up()
 {
-    Schema::create('clientes', function (Blueprint $table) {
+    Schema::create('servicios', function (Blueprint $table) {
         $table->id();
         $table->string('nombre');
-        $table->string('telefono')->nullable();
-        $table->string('email')->nullable();
-        $table->string('direccion')->nullable();
-        $table->string('cuit')->nullable();
+        $table->text('descripcion')->nullable();
+        $table->decimal('precio', 10, 2);
         $table->timestamps();
     });
 }
@@ -28,6 +26,6 @@ public function up(): void
      */
     public function down(): void
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('servicios');
     }
 };

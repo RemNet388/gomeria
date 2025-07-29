@@ -6,26 +6,16 @@
 </div>
 
 <div class="mb-3">
-    <label for="marca" class="form-label">Marca</label>
-    <input type="text" name="marca" class="form-control" value="{{ old('marca', $cliente->marca ?? '') }}">
+    <label for="telefono" class="form-label">Teléfono</label>
+    <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}">
 </div>
 
 <div class="mb-3">
-    <label for="medida" class="form-label">Medida</label>
-    <input type="text" name="medida" class="form-control" value="{{ old('medida', $producto->medida ?? '') }}">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" value="{{ old('email', $cliente->email ?? '') }}">
 </div>
 
 <div class="mb-3">
-    <label for="cantidad" class="form-label">Cantidad</label>
-    <input type="number" name="cantidad" class="form-control" value="{{ old('cantidad', $producto->cantidad ?? 0) }}" required>
-</div>
-
-<div class="mb-3">
-    <label for="precio_venta" class="form-label">Precio de Venta</label>
-    <input type="number" step="0.01" name="precio_venta" class="form-control" value="{{ old('precio_venta', $producto->precio_venta ?? '') }}">
-</div>
-
-<div class="mb-3">
-    <label for="precio_compra" class="form-label">Precio de Compra</label>
-    <input type="number" step="0.01" name="precio_compra" class="form-control" value="{{ old('precio_compra', $producto->precio_compra ?? '') }}">
+    <label for="direccion" class="form-label">Dirección</label>
+    <input type="text" name="direccion" class="form-control" value="{{ old('direccion', $cliente->direccion ?? '') }}">
 </div>

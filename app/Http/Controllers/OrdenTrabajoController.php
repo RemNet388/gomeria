@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrdenTrabajo;
+use App\Models\Cliente;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
@@ -10,24 +11,27 @@ class OrdenTrabajoController extends Controller
 {
     public function index()
     {
-        $ordenes = OrdenTrabajo::with('vehiculo.cliente')->get();
-        return view('ordenes.index', compact('ordenes'));
+        $ordenes = OrdenTrabajo::with('cliente', 'vehiculo')->get();
+        return view('ordenes_trabajo.index', compact('ordenes'));
     }
 
     public function create()
     {
-        $vehiculos = Vehiculo::with('cliente')->get();
-        return view('ordenes.create', compact('vehiculos'));
+        $clientes = Cliente::all();
+        $vehiculos = Vehiculo::all();
+        return view('ordenes_trabajo.create', compact('clientes', 'vehiculos'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'vehiculo_id' => 'required|exists:vehiculos,id',
-            'detalle' => 'nullable|string',
-            'estado' => 'required|string|max:50',
-            'fecha_entrada' => 'nullable|date',
-            'fecha_salida' => 'nullable|date|after_or_equal:fecha_entrada',
+            'cliente_id'     => 'required|exists:clientes,id',
+            'vehiculo_id'    => 'required|exists:vehiculos,id',
+            'fecha_ingreso'  => 'required|date',
+            'estado'         => 'required|string',
+            'descripcion'    => 'nullable|string',
+            'observaciones'  => 'nullable|string',
+            'total'          => 'nullable|numeric',
         ]);
 
         OrdenTrabajo::create($request->all());
@@ -35,30 +39,40 @@ class OrdenTrabajoController extends Controller
         return redirect()->route('ordenes-trabajo.index')->with('success', 'Orden creada correctamente.');
     }
 
-    public function edit(OrdenTrabajo $orden)
-    {
-        $vehiculos = Vehiculo::with('cliente')->get();
-        return view('ordenes.edit', compact('orden', 'vehiculos'));
-    }
+    public function edit(OrdenTrabajo $orden_trabajo)
+{
+    $clientes = Cliente::all();
+    $vehiculos = Vehiculo::all();
 
-    public function update(Request $request, OrdenTrabajo $orden)
+    return view('ordenes_trabajo.edit', [
+    'ordenes_trabajo' => $orden_trabajo,
+    'clientes' => $clientes,
+    'vehiculos' => $vehiculos,
+]);
+
+
+}
+
+    public function update(Request $request, OrdenTrabajo $orden_trabajo)
     {
         $request->validate([
-            'vehiculo_id' => 'required|exists:vehiculos,id',
-            'detalle' => 'nullable|string',
-            'estado' => 'required|string|max:50',
-            'fecha_entrada' => 'nullable|date',
-            'fecha_salida' => 'nullable|date|after_or_equal:fecha_entrada',
+            'cliente_id'     => 'required|exists:clientes,id',
+            'vehiculo_id'    => 'required|exists:vehiculos,id',
+            'fecha_ingreso'  => 'required|date',
+            'estado'         => 'required|string',
+            'descripcion'    => 'nullable|string',
+            'observaciones'  => 'nullable|string',
+            'total'          => 'nullable|numeric',
         ]);
 
-        $orden->update($request->all());
+        $orden_trabajo->update($request->all());
 
         return redirect()->route('ordenes-trabajo.index')->with('success', 'Orden actualizada correctamente.');
     }
 
-    public function destroy(OrdenTrabajo $orden)
+    public function destroy(OrdenTrabajo $orden_trabajo)
     {
-        $orden->delete();
-        return redirect()->route('ordenes-trabajo.index')->with('success', 'Orden eliminada.');
+        $orden_trabajo->delete();
+        return redirect()->route('ordenes-trabajo.index')->with('success', 'Orden eliminada correctamente.');
     }
 }

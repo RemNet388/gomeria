@@ -3,62 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehiculo;
-use App\Models\Cliente;
 use Illuminate\Http\Request;
+
 
 class VehiculoController extends Controller
 {
     public function index()
-    {
-        $vehiculos = Vehiculo::with('cliente')->get();
-        return view('vehiculos.index', compact('vehiculos'));
+{
+    $vehiculos = Vehiculo::all();
+    return view('vehiculos.index', compact('vehiculos'));
+}
+
+public function create()
+{
+    return view('vehiculos.create');
+}
+
+public function store(Request $request)
+{
+    $request->validate([
+        'marca' => 'required|string|max:255',
+        'modelo' => 'required|string|max:255',
+        'logo' => 'nullable|image|max:2048',
+    ]);
+
+    $data = $request->only(['marca', 'modelo']);
+
+    if ($request->hasFile('logo')) {
+        $data['logo'] = $request->file('logo')->store('vehiculos', 'public');
     }
 
-    public function create()
-    {
-        $clientes = Cliente::all();
-        return view('vehiculos.create', compact('clientes'));
+    Vehiculo::create($data);
+
+    return redirect()->route('vehiculos.index')->with('success', 'Vehículo creado correctamente.');
+}
+
+public function edit(Vehiculo $vehiculo)
+{
+    return view('vehiculos.edit', compact('vehiculo'));
+}
+
+public function update(Request $request, Vehiculo $vehiculo)
+{
+    $request->validate([
+        'marca' => 'required|string|max:255',
+        'modelo' => 'required|string|max:255',
+        'logo' => 'nullable|image|max:2048',
+    ]);
+
+    $data = $request->only(['marca', 'modelo']);
+
+    if ($request->hasFile('logo')) {
+        $data['logo'] = $request->file('logo')->store('vehiculos', 'public');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'cliente_id' => 'required|exists:clientes,id',
-            'marca' => 'nullable|string|max:255',
-            'modelo' => 'nullable|string|max:255',
-            'patente' => 'required|string|max:20|unique:vehiculos,patente',
-            'anio' => 'nullable|string|max:4',
-        ]);
+    $vehiculo->update($data);
 
-        Vehiculo::create($request->all());
+    return redirect()->route('vehiculos.index')->with('success', 'Vehículo actualizado.');
+}
 
-        return redirect()->route('vehiculos.index')->with('success', 'Vehículo creado correctamente.');
-    }
+public function destroy(Vehiculo $vehiculo)
+{
+    $vehiculo->delete();
+    return redirect()->route('vehiculos.index')->with('success', 'Vehículo eliminado.');
+}
 
-    public function edit(Vehiculo $vehiculo)
-    {
-        $clientes = Cliente::all();
-        return view('vehiculos.edit', compact('vehiculo', 'clientes'));
-    }
-
-    public function update(Request $request, Vehiculo $vehiculo)
-    {
-        $request->validate([
-            'cliente_id' => 'required|exists:clientes,id',
-            'marca' => 'nullable|string|max:255',
-            'modelo' => 'nullable|string|max:255',
-            'patente' => 'required|string|max:20|unique:vehiculos,patente,' . $vehiculo->id,
-            'anio' => 'nullable|string|max:4',
-        ]);
-
-        $vehiculo->update($request->all());
-
-        return redirect()->route('vehiculos.index')->with('success', 'Vehículo actualizado correctamente.');
-    }
-
-    public function destroy(Vehiculo $vehiculo)
-    {
-        $vehiculo->delete();
-        return redirect()->route('vehiculos.index')->with('success', 'Vehículo eliminado.');
-    }
 }

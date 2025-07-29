@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\OrdenTrabajoController;
+
+Route::resource('ventas', App\Http\Controllers\VentaController::class);
 
 Route::get('/', function () {
     return view('dashboard');
@@ -35,10 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('vehiculos', VehiculoController::class);
 });
 
-use App\Http\Controllers\OrdenTrabajoController;
+Route::resource('ordenes-trabajo', OrdenTrabajoController::class)->parameters([
+    'ordenes-trabajo' => 'orden_trabajo'
+]);
+Route::resource('servicios', App\Http\Controllers\ServicioController::class);
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('ordenes-trabajo', OrdenTrabajoController::class);
-});
 
 require __DIR__.'/auth.php';

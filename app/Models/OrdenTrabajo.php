@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrdenTrabajo extends Model
 {
-    //
-public function vehiculo()
-{
-    return $this->belongsTo(Vehiculo::class);
-}
+    protected $fillable = [
+        'cliente_id', 'vehiculo_id', 'fecha_ingreso',
+        'estado', 'descripcion', 'observaciones', 'total'
+    ];
 
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class);
+    }
 }

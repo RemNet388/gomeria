@@ -2,42 +2,59 @@
 
 @section('content')
 <div class="container">
-    <h1>Productos</h1>
-
-    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Agregar producto</a>
+    <h2>Listado de productos</h2>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table">
+    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Agregar nuevo producto</a>
+
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th>Foto</th>
                 <th>Nombre</th>
                 <th>Marca</th>
                 <th>Medida</th>
+                <th>Categoría</th>
                 <th>Cantidad</th>
+                <th>Precio Compra</th>
                 <th>Precio Venta</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-        @foreach ($productos as $producto)
+        @forelse ($productos as $producto)
             <tr>
+                <td>
+                    @if ($producto->foto)
+                        <img src="{{ asset('storage/' . $producto->foto) }}" width="60" height="60" style="object-fit: cover;">
+                    @else
+                        <span class="text-muted">Sin imagen</span>
+                    @endif
+                </td>
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->marca }}</td>
                 <td>{{ $producto->medida }}</td>
+                <td>{{ $producto->categoria }}</td>
                 <td>{{ $producto->cantidad }}</td>
+                <td>${{ number_format($producto->precio_compra, 2) }}</td>
                 <td>${{ number_format($producto->precio_venta, 2) }}</td>
                 <td>
-                    <a href="{{ route('productos.edit', $producto) }}" class="btn btn-sm btn-warning">Editar</a>
-                    <form action="{{ route('productos.destroy', $producto) }}" method="POST" style="display:inline-block;">
-                        @csrf @method('DELETE')
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este producto?')">Eliminar</button>
+                    <a href="{{ route('productos.edit', $producto->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar este producto?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                     </form>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="9">No hay productos cargados.</td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 </div>

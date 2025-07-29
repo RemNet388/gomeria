@@ -9,15 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
+public function up()
 {
-    Schema::create('clientes', function (Blueprint $table) {
+    Schema::create('ventas', function (Blueprint $table) {
         $table->id();
-        $table->string('nombre');
-        $table->string('telefono')->nullable();
-        $table->string('email')->nullable();
-        $table->string('direccion')->nullable();
-        $table->string('cuit')->nullable();
+        $table->date('fecha')->default(now());
+        $table->decimal('total', 10, 2)->default(0);
+        $table->enum('tipo', ['producto', 'servicio']);
         $table->timestamps();
     });
 }
@@ -28,6 +26,6 @@ public function up(): void
      */
     public function down(): void
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('ventas');
     }
 };

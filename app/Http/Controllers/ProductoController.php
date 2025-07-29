@@ -15,7 +15,8 @@ class ProductoController extends Controller
 
     public function create()
     {
-        return view('productos.create');
+        $categorias = ['Neumáticos', 'Camionetas', 'Outlet', 'Repuestos'];
+        return view('productos.create', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -27,16 +28,25 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer|min:0',
             'precio_compra' => 'nullable|numeric',
             'precio_venta' => 'nullable|numeric',
+            'categoria' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        Producto::create($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('productos', 'public');
+        }
+
+        Producto::create($data);
 
         return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
 
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        $categorias = ['Neumáticos', 'Camionetas', 'Outlet', 'Repuestos'];
+        return view('productos.edit', compact('producto', 'categorias'));
     }
 
     public function update(Request $request, Producto $producto)
@@ -48,9 +58,17 @@ class ProductoController extends Controller
             'cantidad' => 'required|integer|min:0',
             'precio_compra' => 'nullable|numeric',
             'precio_venta' => 'nullable|numeric',
+            'categoria' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $producto->update($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('productos', 'public');
+        }
+
+        $producto->update($data);
 
         return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
     }

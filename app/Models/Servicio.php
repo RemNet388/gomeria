@@ -5,18 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Servicio extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'nombre',
-        'apellido',
-        'telefono',
-        'email',
-        'direccion',
-        'cuit',
-        // Agregá más campos si tu tabla tiene otros
+        'descripcion',
+        'precio',
     ];
 }
-

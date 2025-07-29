@@ -15,8 +15,14 @@
             <a href="{{ route('vehiculos.index') }}" class="btn btn-outline-primary w-100">🚗 Vehículos</a>
         </div>
         <div class="col-md-4">
+            <a href="{{ route('servicios.index') }}" class="btn btn-outline-primary w-100">🚗 Servicios</a>
+        </div>
+        <div class="col-md-4">
             <a href="{{ route('ordenes-trabajo.index') }}" class="btn btn-outline-primary w-100">🛠️ Órdenes de Trabajo</a>
         </div>
+        <div class="col-md-4">
+            <a href="{{ route('ventas.index') }}" class="btn btn-outline-primary w-100">💰 Ventas</a>
+        </div>     
     </div>
 </div>
 @endsection

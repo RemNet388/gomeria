@@ -1,7 +1,6 @@
 services:
   - type: web
     name: gomeria
-    env: php
     plan: free
     buildCommand: |
       composer install
@@ -14,7 +13,7 @@ services:
         value: production
       - key: APP_DEBUG
         value: false
-      - key: base64:u42TwQ1dp8vrV2pf3si2HR86PYMxpfzRIruOfEUrUc4=
+      - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION
         value: sqlite

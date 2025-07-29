@@ -3,7 +3,7 @@ services:
     name: gomeria
     plan: free
     buildCommand: |
-      composer install
+      composer install --no-dev --optimize-autoloader
       npm install
       npm run build
       php artisan migrate --force
@@ -12,8 +12,8 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: true
       - key: APP_KEY
-        generateValue: true
+        value: base64:w2INc/JToPZbPD0Sdu/V3YZ/fy4IWZykvJOrlVw24pU= 
       - key: DB_CONNECTION
         value: sqlite

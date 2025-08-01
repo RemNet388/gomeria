@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Editar Orden de Trabajo #{{ $ordenes_trabajo->id }}</h2>
+    <h2 class="section-title"
+>Editar Orden de Trabajo #{{ $ordenes_trabajo->id }}</h2>
 
     <form action="{{ route('ordenes-trabajo.update', $ordenes_trabajo) }}" method="POST">
         @csrf
@@ -59,7 +60,7 @@
             <input type="number" name="total" step="0.01" class="form-control" value="{{ $ordenes_trabajo->total }}">
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar orden</button>
+        <button type="submit" class="btn btn-primary btn-custom">Actualizar orden</button>
     </form>
 </div>
 @endsection

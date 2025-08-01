@@ -3,20 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetalleVenta extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'venta_id',
-        'producto_id',
-        'servicio',
-        'cantidad',
-        'precio_unitario',
-        'subtotal',
-    ];
+    protected $fillable = ['venta_id', 'producto_id', 'servicio_id', 'cantidad', 'precio_unitario', 'subtotal'];
 
     public function venta()
     {
@@ -26,5 +16,10 @@ class DetalleVenta extends Model
     public function producto()
     {
         return $this->belongsTo(Producto::class);
+    }
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicio::class);
     }
 }

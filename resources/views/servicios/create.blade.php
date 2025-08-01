@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>➕ Nuevo Servicio</h2>
+    <h2 class="section-title">➕ Nuevo Servicio</h2>
 
     <form action="{{ route('servicios.store') }}" method="POST">
         @csrf
@@ -22,7 +22,7 @@
             <input type="number" name="precio" step="0.01" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-custom">Guardar</button>
     </form>
 </div>
 @endsection

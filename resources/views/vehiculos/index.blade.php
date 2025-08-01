@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2>Vehículos</h2>
+    <h2 class="section-title">Vehículos</h2>
 
-    <a href="{{ route('vehiculos.create') }}" class="btn btn-success mb-3">Agregar Vehículo</a>
+    <a href="{{ route('vehiculos.create') }}" class="btn btn-success mb-3 btn-custom">Agregar Vehículo</a>
 
     <table class="table table-bordered">
         <thead>
@@ -30,7 +30,7 @@
                         <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button onclick="return confirm('¿Eliminar vehículo?')" class="btn btn-sm btn-danger">Eliminar</button>
+                            <button onclick="return confirm('¿Eliminar vehículo?')" class="btn btn-sm btn-danger btn-custom">Eliminar</button>
                         </form>
                     </td>
                 </tr>

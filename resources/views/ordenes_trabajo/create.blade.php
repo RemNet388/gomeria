@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Crear Orden de Trabajo</h2>
+    <h2 class="section-title"
+>Crear Orden de Trabajo</h2>
 
     <form action="{{ route('ordenes-trabajo.store') }}" method="POST">
         @csrf
@@ -56,7 +57,7 @@
             <input type="number" step="0.01" name="total" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar Orden</button>
+        <button type="submit" class="btn btn-primary btn-custom">Guardar Orden</button>
     </form>
 </div>
 @endsection

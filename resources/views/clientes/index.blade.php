@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h1>Clientes</h1>
+    <h1 class="section-title">Clientes</h1>
 
-    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Agregar cliente</a>
+    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3 btn-custom">Agregar cliente</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Editar producto</h2>
+    <h2 class="section-title">Editar producto</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -69,7 +69,7 @@
             <input type="file" name="foto" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar producto</button>
+        <button type="submit" class="btn btn-primary btn-custom">Actualizar producto</button>
         <a href="{{ route('productos.index') }}" class="btn btn-secondary">Volver</a>
     </form>
 </div>

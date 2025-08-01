@@ -1,0 +1,6 @@
+	$dbhost = 'localhost';
+	$dbuser = 'l0020955_adrian';
+	$dbpass = 'doKOfasa25';
+	$dbname = 'l0020955_adrian';
+
+base64:3NL29h0g0QPLHRZnQ9lxeORc/+JxG78/7GpbO40/n6Y=

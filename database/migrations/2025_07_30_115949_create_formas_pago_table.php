@@ -11,11 +11,9 @@ return new class extends Migration
      */
 public function up()
 {
-    Schema::create('ventas', function (Blueprint $table) {
+    Schema::create('forma_pagos', function (Blueprint $table) {
         $table->id();
-        $table->date('fecha')->default(now());
-        $table->decimal('total', 10, 2)->default(0);
-        $table->enum('tipo', ['producto', 'servicio']);
+        $table->string('nombre');
         $table->timestamps();
     });
 }
@@ -26,6 +24,6 @@ public function up()
      */
     public function down(): void
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('forma_pagos');
     }
 };

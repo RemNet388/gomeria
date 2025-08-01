@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container">
-    <h2>Listado de productos</h2>
+    <h2 class="section-title">Listado de productos</h2>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3">Agregar nuevo producto</a>
+    <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3 btn-custom">Agregar nuevo producto</a>
+    <a href="{{ route('productos.stock') }}" class="btn btn-outline-info btn-sm btn-custom">📋 Ver Stock</a>
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -46,7 +47,7 @@
                     <form action="{{ route('productos.destroy', $producto->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar este producto?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-sm btn-danger btn-custom">Eliminar</button>
                     </form>
                 </td>
             </tr>

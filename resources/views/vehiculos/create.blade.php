@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Agregar Vehículo</h2>
+    <h2 class="section-title">Agregar Vehículo</h2>
 
     <form action="{{ route('vehiculos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -22,7 +22,7 @@
             <input type="file" name="logo" class="form-control">
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-custom">Guardar</button>
     </form>
 </div>
 @endsection

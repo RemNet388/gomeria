@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>✏️ Editar Servicio</h2>
+    <h2 class="section-title">✏️ Editar Servicio</h2>
 
     <form action="{{ route('servicios.update', $servicio) }}" method="POST">
         @csrf
@@ -23,7 +23,7 @@
             <input type="number" name="precio" step="0.01" class="form-control" value="{{ $servicio->precio }}" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="submit" class="btn btn-primary btn-custom">Actualizar</button>
     </form>
 </div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductoController extends Controller
 {
@@ -78,4 +79,18 @@ class ProductoController extends Controller
         $producto->delete();
         return redirect()->route('productos.index')->with('success', 'Producto eliminado.');
     }
+
+public function verStock()
+{
+    $productos = Producto::all();
+    return view('productos.stock', compact('productos'));
+}
+
+public function descargarStock()
+{
+    $productos = Producto::all();
+    $pdf = Pdf::loadView('productos.stock-pdf', compact('productos'));
+    return $pdf->download('stock-' . now()->format('Ymd') . '.pdf');
+}
+
 }

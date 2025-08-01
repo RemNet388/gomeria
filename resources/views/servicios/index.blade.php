@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>🛠️ Servicios</h2>
-    <a href="{{ route('servicios.create') }}" class="btn btn-success mb-3">➕ Nuevo Servicio</a>
+    <h2 class="section-title">🛠️ Servicios</h2>
+    <a href="{{ route('servicios.create') }}" class="btn btn-success mb-3 btn-custom">➕ Nuevo Servicio</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -31,7 +31,7 @@
                         <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este servicio?')">Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-danger btn-custom" onclick="return confirm('¿Eliminar este servicio?')">Eliminar</button>
                         </form>
                     </td>
                 </tr>

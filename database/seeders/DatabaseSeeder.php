@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+    $this->call([
+        FormaPagoSeeder::class,
+    ]);
+User::create([
+    'name' => 'Ruben',
+    'email' => 'rubenmachado76@gmail.com',
+    'password' => bcrypt('gooNet560'), // importante definir la contraseña
+]);
     }
 }

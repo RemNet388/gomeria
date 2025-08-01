@@ -2,44 +2,50 @@
 
 @section('content')
 <div class="container">
-    <h2>💰 Ventas</h2>
+    <h2 class="section-title">Listado de Ventas</h2>
 
-    <a href="{{ route('ventas.create') }}" class="btn btn-success mb-3">➕ Nueva Venta</a>
-
-    @if (session('success'))
+    @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered table-striped">
-        <thead>
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    <a href="{{ route('ventas.create') }}" class="btn btn-primary mb-3 btn-custom">➕ Nueva Venta</a>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Fecha</th>
-                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Forma de Pago</th>
                 <th>Total</th>
+                <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($ventas as $venta)
+            @forelse($ventas as $venta)
                 <tr>
                     <td>{{ $venta->id }}</td>
-                    <td>{{ $venta->created_at->format('d/m/Y H:i') }}</td>
-                    <td>{{ ucfirst($venta->tipo) }}</td>
-                    <td>${{ number_format($venta->total, 2, ',', '.') }}</td>
+                    <td>{{ $venta->cliente->nombre }} {{ $venta->cliente->apellido }}</td>
+                    <td>{{ $venta->formaPago->nombre }}</td>
+                    <td>$ {{ number_format($venta->total, 2, ',', '.') }}</td>
+                    <td>{{ $venta->fecha }}</td>
                     <td>
-                        <a href="{{ route('ventas.show', $venta) }}" class="btn btn-sm btn-primary">Ver</a>
-                        <a href="{{ route('ventas.edit', $venta) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('ventas.destroy', $venta) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('ventas.show', $venta) }}" class="btn btn-sm btn-info">👁️ Ver</a>
+
+                        <form action="{{ route('ventas.destroy', $venta) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar esta venta?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar esta venta?')">Eliminar</button>
+                            <button class="btn btn-sm btn-danger btn-custom">🗑️ Eliminar</button>
                         </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">No hay ventas registradas.</td>
+                    <td colspan="6">No hay ventas registradas.</td>
                 </tr>
             @endforelse
         </tbody>

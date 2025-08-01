@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2>Órdenes de Trabajo</h2>
+    <h2 class="section-title">Órdenes de Trabajo</h2>
 
-    <a href="{{ route('ordenes-trabajo.create') }}" class="btn btn-success mb-3">Nueva Orden</a>
+    <a href="{{ route('ordenes-trabajo.create') }}" class="btn btn-success mb-3 btn-custom">Nueva Orden</a>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -36,7 +36,7 @@
                         <form action="{{ route('ordenes-trabajo.destroy', $orden) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button onclick="return confirm('¿Eliminar esta orden?')" class="btn btn-sm btn-danger">Eliminar</button>
+                            <button onclick="return confirm('¿Eliminar esta orden?')" class="btn btn-sm btn-danger btn-custom">Eliminar</button>
                         </form>
                     </td>
                 </tr>

@@ -13,9 +13,9 @@ public function up()
 {
     Schema::create('detalle_ventas', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('venta_id')->constrained('ventas')->onDelete('cascade');
-        $table->foreignId('producto_id')->nullable()->constrained('productos')->nullOnDelete();
-        $table->string('servicio')->nullable(); // en caso de venta de servicio
+        $table->foreignId('venta_id')->constrained()->onDelete('cascade');
+        $table->unsignedBigInteger('producto_id')->nullable(); // puede ser producto
+        $table->unsignedBigInteger('servicio_id')->nullable(); // o servicio
         $table->integer('cantidad');
         $table->decimal('precio_unitario', 10, 2);
         $table->decimal('subtotal', 10, 2);

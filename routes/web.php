@@ -72,5 +72,9 @@ Route::get('/crear-admin', function () {
 });
 Route::resource('formas-pago', \App\Http\Controllers\FormaPagoController::class);
 
+Route::get('/test', function () {
+    return response()->json(['ok' => true]);
+});
+
 require __DIR__.'/auth.php';
  

@@ -6,7 +6,7 @@ services:
       composer install --no-interaction --prefer-dist --optimize-autoloader
       php artisan config:cache
       php artisan migrate --force
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    startCommand: php artisan serve --host=0.0.0.0 --port=3000
     envVars:
       - key: APP_ENV
         value: production

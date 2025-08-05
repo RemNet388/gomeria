@@ -9,7 +9,7 @@
     @endif
 
     <a href="{{ route('productos.create') }}" class="btn btn-primary mb-3 btn-custom">Agregar nuevo producto</a>
-    <a href="{{ route('productos.stock') }}" class="btn btn-outline-info btn-sm btn-custom">📋 Ver Stock</a>
+    <a href="{{ route('productos.stock') }}" class="btn btn-outline-secondary">📊 Ver Stock</a>
 
     <table class="table table-bordered table-striped">
         <thead>

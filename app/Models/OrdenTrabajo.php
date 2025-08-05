@@ -20,4 +20,9 @@ class OrdenTrabajo extends Model
     {
         return $this->belongsTo(Vehiculo::class);
     }
+    public function items()
+{
+    return $this->hasMany(OrdenTrabajoItem::class);
+}
+
 }

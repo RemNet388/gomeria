@@ -31,14 +31,6 @@
                     @endforeach
                 </select>
             </div>
-
-            <div class="col-md-4">
-                <label>Tipo</label>
-                <select id="tipo" class="form-select">
-                    <option value="producto" selected>Producto</option>
-                    <option value="servicio">Servicio</option>
-                </select>
-            </div>
         </div>
 
         <hr>
@@ -48,8 +40,8 @@
         <button type="button" id="addItemBtn" class="btn btn-secondary mb-3 btn-custom">➕ Agregar ítem</button>
 
         <div class="mb-3">
-            <label>Total (editable)</label>
-            <input type="number" name="total" id="totalInput" class="form-control" step="0.01" required>
+            <label>Total</label>
+           <input type="number" id="totalInput" name="total" class="form-control" step="0.01" readonly>
         </div>
 
         <button type="submit" class="btn btn-success btn-custom">Registrar venta</button>

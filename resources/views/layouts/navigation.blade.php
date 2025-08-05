@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-2">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
-            Nombre Empresa
+            AG - Gomeria
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
@@ -15,7 +15,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('vehiculos.index') }}">🚗 Vehículos</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('servicios.index') }}">🔧 Servicios</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('ventas.index') }}">💰 Ventas</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('ordenes-trabajo.index') }}">🛠️ Órdenes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('reparaciones.index') }}">🛠️ Órdenes</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('caja.index') }}">📊 Caja</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('formas-pago.index') }}">💳 Formas de pago</a></li>
             </ul>

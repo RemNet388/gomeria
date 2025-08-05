@@ -26,7 +26,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('vehiculos.edit', $vehiculo) }}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{{ route('vehiculos.edit', $vehiculo) }}" class="btn btn-sm btn-primary  btn-custom">Editar</a>
                         <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')

@@ -6,6 +6,10 @@ use App\Models\OrdenTrabajo;
 use App\Models\Cliente;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use App\Models\Producto;
+use App\Models\Servicio;
+use App\Models\FormaPago;
+
 
 class OrdenTrabajoController extends Controller
 {
@@ -50,7 +54,6 @@ class OrdenTrabajoController extends Controller
     'vehiculos' => $vehiculos,
 ]);
 
-
 }
 
     public function update(Request $request, OrdenTrabajo $orden_trabajo)
@@ -69,6 +72,17 @@ class OrdenTrabajoController extends Controller
 
         return redirect()->route('ordenes-trabajo.index')->with('success', 'Orden actualizada correctamente.');
     }
+
+public function show($id)
+{
+    $orden_trabajo = OrdenTrabajo::with('items.producto', 'items.servicio')->findOrFail($id);
+    $productos = Producto::all();
+    $servicios = Servicio::all();
+    $formasPago = FormaPago::all(); // para el botón de generar venta
+
+    return view('ordenes-trabajo.show', compact('orden_trabajo', 'productos', 'servicios', 'formasPago'));
+}
+
 
     public function destroy(OrdenTrabajo $orden_trabajo)
     {

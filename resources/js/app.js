@@ -9,59 +9,71 @@ document.addEventListener('DOMContentLoaded', function () {
     let itemIndex = 0;
 
     function renderItem() {
-        const tipo = document.getElementById('tipo').value;
         const container = document.getElementById('itemsContainer');
-        let html = `<div class="row align-items-end mb-2 item-row border-bottom pb-2">`;
+        const tipoDefault = 'producto';
 
-        // Tipo visual
+        let html = `<div class="row align-items-end mb-2 item-row border-bottom pb-2" data-index="${itemIndex}">`;
+
+        // Selector de tipo por ítem
         html += `
-            <input type="hidden" name="items[${itemIndex}][tipo]" value="${tipo}">
-            <div class="col-md-12"><strong>${tipo === 'producto' ? '🟦 Producto' : '🟩 Servicio'}</strong></div>
+            <div class="col-md-2">
+                <label>Tipo</label>
+                <select class="form-select tipo-select" name="items[${itemIndex}][tipo]">
+                    <option value="producto" selected>Producto</option>
+                    <option value="servicio">Servicio</option>
+                </select>
+            </div>
         `;
 
-        if (tipo === 'producto') {
-            html += `
-                <div class="col-md-4">
-                    <label>Producto</label>
-                    <select name="items[${itemIndex}][producto_id]" class="form-select producto-select">
-                        <option value="">Seleccione</option>
-                        ${window.productos.map(p => `<option value="${p.id}" data-precio="${p.precio_venta}">${p.nombre}</option>`).join('')}
-                    </select>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="col-md-4">
-                    <label>Servicio</label>
-                    <select name="items[${itemIndex}][servicio_id]" class="form-select servicio-select">
-                        <option value="">Seleccione</option>
-                        ${window.servicios.map(s => `<option value="${s.id}" data-precio="${s.precio}">${s.nombre}</option>`).join('')}
-                    </select>
-                </div>
-            `;
-        }
-
+        // Contenedor dinámico
         html += `
-            <div class="col-md-2">
-                <label>Cantidad</label>
-                <input type="number" name="items[${itemIndex}][cantidad]" class="form-control cantidad" value="1" min="1">
+            <div class="col-md-10 tipo-contenido">
+                ${renderTipoContenido(tipoDefault, itemIndex)}
             </div>
-            <div class="col-md-2">
-                <label>Precio</label>
-                <input type="number" name="items[${itemIndex}][precio]" class="form-control precio" step="0.01">
-            </div>
-            <div class="col-md-2">
-                <label>Subtotal</label>
-                <input type="text" class="form-control subtotal" readonly>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-danger w-100 btn-remove">🗑️</button>
-            </div>
-        </div>`;
+        `;
+
+        html += `</div>`;
 
         container.insertAdjacentHTML('beforeend', html);
         itemIndex++;
         recalcularTotales();
+    }
+
+    function renderTipoContenido(tipo, index) {
+        let contenido = `
+            <div class="row">
+                <div class="col-md-4">
+                    <label>${tipo === 'producto' ? 'Producto' : 'Servicio'}</label>
+                    <select name="items[${index}][${tipo}_id]" class="form-select ${tipo}-select">
+                        <option value="">Seleccione</option>
+                        ${tipo === 'producto'
+                            ? window.productos.map(p => `<option value="${p.id}" data-precio="${p.precio_venta}">${p.nombre}</option>`).join('')
+                            : window.servicios.map(s => `<option value="${s.id}" data-precio="${s.precio}">${s.nombre}</option>`).join('')
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Cantidad</label>
+                    <input type="number" name="items[${index}][cantidad]" class="form-control cantidad" value="1" min="1">
+                </div>
+
+                <div class="col-md-2">
+                    <label>Precio</label>
+                    <input type="number" name="items[${index}][precio]" class="form-control precio" step="0.01">
+                </div>
+
+                <div class="col-md-2">
+                    <label>Subtotal</label>
+                    <input type="text" class="form-control subtotal" readonly>
+                </div>
+
+                <div class="col-md-2 mt-2">
+                    <button type="button" class="btn btn-danger w-100 btn-remove">🗑️</button>
+                </div>
+            </div>
+        `;
+        return contenido;
     }
 
     function recalcularTotales() {
@@ -81,19 +93,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (document.getElementById('addItemBtn')) {
-        // Agrega el primer ítem al iniciar
         renderItem();
 
         document.getElementById('addItemBtn').addEventListener('click', function () {
             renderItem();
         });
 
-        // El cambio de tipo no borra ítems, simplemente afecta el siguiente ítem
-        document.getElementById('tipo').addEventListener('change', function () {
-            // No hacemos nada destructivo
-        });
-
+        // Cambio de tipo en un ítem individual
         document.getElementById('itemsContainer').addEventListener('change', function (e) {
+            if (e.target.matches('.tipo-select')) {
+                const row = e.target.closest('.item-row');
+                const index = row.getAttribute('data-index');
+                const tipo = e.target.value;
+                const contenido = renderTipoContenido(tipo, index);
+                row.querySelector('.tipo-contenido').innerHTML = contenido;
+            }
+
             if (e.target.matches('.producto-select, .servicio-select')) {
                 const selected = e.target.options[e.target.selectedIndex];
                 const precio = selected.getAttribute('data-precio') || 0;

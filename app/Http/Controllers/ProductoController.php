@@ -90,7 +90,7 @@ public function descargarStock()
 {
     $productos = Producto::all();
     $pdf = Pdf::loadView('productos.stock-pdf', compact('productos'));
-    return $pdf->download('stock-' . now()->format('Ymd') . '.pdf');
+    return $pdf->download('stock-productos-' . now()->format('Ymd') . '.pdf');
 }
 
 }

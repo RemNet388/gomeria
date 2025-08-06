@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema Integral</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    //@vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DWNh353h.css') }}">
+    <script src="{{ asset('build/assets/app-DrnTM7B9.js') }}" defer></script>
 </head>
 <body>
     @include('layouts.navigation')

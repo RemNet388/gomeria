@@ -1,30 +1,10 @@
 services:
   - type: web
-    name: gomeria
+    name: sistema
     env: php
     buildCommand: |
       composer install --no-interaction --prefer-dist --optimize-autoloader
       php artisan config:cache
       php artisan migrate --force
-    startCommand: php artisan serve --host=0.0.0.0 --port=3000
-                  railway run php artisan migrate --force
-
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: APP_KEY
-        generateValue: true
-      - key: APP_DEBUG
-        value: false
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        value: switchyard.proxy.rlwy.net
-      - key: DB_PORT
-        value: 39399
-      - key: DB_DATABASE
-        value: railway
-      - key: DB_USERNAME
-        value: root
-      - key: DB_PASSWORD
-        value: GpDrdkRkEFbnwTbmhaHQnbIGifnEHJGM
+    startCommand: php -S 0.0.0.0:10000 -t public
+              

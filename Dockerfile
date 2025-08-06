@@ -2,8 +2,9 @@ FROM php:8.2-fpm
 
 # Requisitos para Laravel y Vite
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev nodejs npm \
-    && docker-php-ext-install pdo_mysql zip
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip \
+    libpq-dev libzip-dev nodejs npm \
+    && docker-php-ext-install pdo pdo_pgsql zip
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
